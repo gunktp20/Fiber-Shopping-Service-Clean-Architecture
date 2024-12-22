@@ -54,23 +54,19 @@ func (r *productPostgresRepository) GetAllProducts(keyword string) ([]*productEn
 	query := `SELECT id, name, description, price, image_url, created_at, updated_at FROM products`
 	args := map[string]interface{}{}
 
-	// ตรวจสอบ keyword และเพิ่มเงื่อนไขใน query
 	if keyword != "" {
 		query += ` WHERE name ILIKE :keyword OR description ILIKE :keyword`
 		args["keyword"] = "%" + keyword + "%"
 	}
 
-	// สร้าง slice สำหรับเก็บผลลัพธ์
 	var products []*productEntity.Product
 
-	// ใช้ sqlx.NamedQuery สำหรับรัน query
 	nstmt, err := r.db.NamedQuery(query, args)
 	if err != nil {
 		return nil, err
 	}
 	defer nstmt.Close()
 
-	// Map ผลลัพธ์ไปยัง struct
 	for nstmt.Next() {
 		product := new(productEntity.Product)
 		if err := nstmt.StructScan(product); err != nil {
@@ -103,7 +99,7 @@ func (r *productPostgresRepository) DeleteProductById(id string) error {
 }
 
 func (r *productPostgresRepository) UpdateProductById(selectedId string, updateProductReq *productDto.UpdateProductReq) (*productEntity.Product, error) {
-	// แทนที่ QueryRowx ด้วย Exec สำหรับการอัพเดตข้อมูล
+
 	query := `UPDATE Products SET name = $2, description = $3, price = $4 WHERE id = $1;`
 	args := []interface{}{selectedId, updateProductReq.Name, updateProductReq.Description, updateProductReq.Price}
 
@@ -112,7 +108,6 @@ func (r *productPostgresRepository) UpdateProductById(selectedId string, updateP
 		return &productEntity.Product{}, err
 	}
 
-	// ตรวจสอบว่ามีแถวถูกอัพเดตหรือไม่
 	rowsAffected, err := result.RowsAffected()
 	if err != nil {
 		return &productEntity.Product{}, err
@@ -127,7 +122,6 @@ func (r *productPostgresRepository) UpdateProductById(selectedId string, updateP
 		return &productEntity.Product{}, fmt.Errorf("invalid id format: %v", err)
 	}
 
-	// ถ้าต้องการคืนค่าผลลัพธ์ในรูปแบบของ product ใหม่
 	product := new(productEntity.Product)
 	product.ID = id
 	product.Name = updateProductReq.Name

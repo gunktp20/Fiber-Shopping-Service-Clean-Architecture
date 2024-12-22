@@ -9,7 +9,7 @@ import (
 )
 
 func (h *productHttpHandler) UploadProductImage(c *fiber.Ctx) error {
-	// Retrieve the binary file from the request
+
 	fileBytes := c.Body()
 	if len(fileBytes) == 0 {
 		return response.ErrResponse(c, http.StatusBadRequest, "File is required")

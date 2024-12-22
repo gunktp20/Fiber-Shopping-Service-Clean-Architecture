@@ -5,11 +5,9 @@ import (
 	"net/http"
 )
 
-// GetFileExtension detects the file extension based on the MIME type
 func GetImageFileExtension(fileBytes []byte) (string, error) {
 	contentType := http.DetectContentType(fileBytes)
 
-	// Map of allowed MIME types to file extensions
 	allowedExtensions := map[string]string{
 		"image/jpeg": ".jpg",
 		"image/png":  ".png",

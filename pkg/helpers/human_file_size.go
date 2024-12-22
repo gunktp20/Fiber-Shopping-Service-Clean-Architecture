@@ -5,7 +5,6 @@ import (
 	"math"
 )
 
-// HumanFileSize formats bytes as a human-readable string.
 func HumanFileSize(bytes int64, si bool, dp int) string {
 	var thresh float64
 	if si {
