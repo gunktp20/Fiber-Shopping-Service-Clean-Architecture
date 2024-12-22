@@ -1,0 +1,15 @@
+server:
+  port: 3000
+  
+db:
+  host: localhost
+  port: 5433
+  user: postgres
+  password: f9a8eea3xXx
+  dbname: mydatabase
+  sslmode: disable
+  timezone: Asia/Bangkok
+
+jwt:
+  access_secret_key: znOTgczjMWOT2Pp1xqQcH5anqYfb1yjv
+  refresh_secret_key: qJytaUGE2IaawXrVKL1KnNZycfxA94vL
