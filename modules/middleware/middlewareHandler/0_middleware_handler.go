@@ -2,10 +2,13 @@ package handler
 
 import (
 	middlewareUsecase "shopping-service-be/modules/middleware/middlewareUsecase"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 type (
 	MiddlewareHandlerService interface {
+		JwtAuthorization(c *fiber.Ctx) error
 	}
 
 	middlewareHandler struct {

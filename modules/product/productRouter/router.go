@@ -1,15 +1,16 @@
 package router
 
 import (
-	handler "shopping-service-be/modules/product/productHandler"
+	middlewareHandler "shopping-service-be/modules/middleware/middlewareHandler"
+	productHandler "shopping-service-be/modules/product/productHandler"
 
 	"github.com/gofiber/fiber/v2"
 )
 
-func SetupProductRoutes(api fiber.Router, productHttpHandler handler.ProductHttpHandlerService) {
+func SetupProductRoutes(api fiber.Router, productHttpHandler productHandler.ProductHttpHandlerService, middlewareHandler middlewareHandler.MiddlewareHandlerService) {
 	routes := api.Group("/product")
 
-	routes.Get("/", productHttpHandler.GetAllProducts)
+	routes.Get("/", middlewareHandler.JwtAuthorization, productHttpHandler.GetAllProducts)
 	routes.Post("/", productHttpHandler.CreateProduct)
 	routes.Put("/:product_id", productHttpHandler.UpdateProductById)
 	routes.Delete("/:product_id", productHttpHandler.DeleteProductById)

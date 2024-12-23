@@ -3,12 +3,12 @@ package usecase
 import (
 	"shopping-service-be/pkg/config"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 type (
 	MiddlewareUsecaseService interface {
-		JwtAuthorization(c fiber.Ctx, cfg *config.Config, accessToken string) (fiber.Ctx, error)
+		JwtAuthorization(tokenString string) (*jwt.Token, error)
 	}
 
 	middlewareUsecase struct {
