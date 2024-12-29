@@ -1,7 +1,7 @@
 package database
 
-import "github.com/jmoiron/sqlx"
+import "gorm.io/gorm"
 
 type Database interface {
-	GetDb() *sqlx.DB
+	GetDb() *gorm.DB
 }

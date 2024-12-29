@@ -2,8 +2,9 @@ package server
 
 import (
 	"fmt"
-	"shopping-service-be/pkg/config"
-	"shopping-service-be/pkg/database"
+
+	"github.com/gunktp20/digital-hubx-be/pkg/config"
+	"github.com/gunktp20/digital-hubx-be/pkg/database"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -45,8 +46,7 @@ func (s *fiberServer) Start() {
 	})
 
 	serverUrl := fmt.Sprintf(":%d", s.conf.Server.Port)
-	s.initializeProductHttpHandler(api)
-	s.initializeUserHttpHandler(api)
-	s.initializeAuthHttpHandler(api, s.conf)
+
+	s.initializeAppGroupHttpHandler(api, s.conf)
 	s.app.Listen(serverUrl)
 }

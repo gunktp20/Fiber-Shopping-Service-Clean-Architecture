@@ -2,9 +2,10 @@ package main
 
 import (
 	"context"
-	"shopping-service-be/pkg/config"
-	"shopping-service-be/pkg/database"
-	"shopping-service-be/server"
+
+	"github.com/gunktp20/digital-hubx-be/pkg/config"
+	"github.com/gunktp20/digital-hubx-be/pkg/database"
+	"github.com/gunktp20/digital-hubx-be/server"
 )
 
 func main() {
@@ -13,7 +14,7 @@ func main() {
 
 	conf := config.GetConfig()
 
-	db := database.NewPostgresDatabase(ctx, conf)
+	db := database.NewGormPostgresDatabase(ctx, conf)
 
 	server.NewFiberServer(conf, db).Start()
 }
